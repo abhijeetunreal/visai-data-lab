@@ -1,4 +1,4 @@
-import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ScatterPlot } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter } from 'lucide-react';
 import React from 'react';
 import {
   BarChart as RechartsBarChart,
@@ -303,7 +303,7 @@ export const chartTypes: ChartType[] = [
     id: 'scatter-chart',
     name: 'Scatter Chart',
     description: 'Shows the relationship between two numerical variables by plotting points on a 2D plane.',
-    Icon: ScatterPlot,
+    Icon: ChartScatter,
     component: SampleScatterChart,
   },
   {
