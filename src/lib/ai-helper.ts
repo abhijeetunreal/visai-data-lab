@@ -441,6 +441,130 @@ const aiResponses: Record<string, AiHelp> = {
       },
     ],
   },
+  'composed-chart': {
+    heading: 'Implementing Mixed Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Chart.js allows you to mix chart types on the same canvas. For example, you can have a bar chart and a line chart overlaid to show different aspects of your data.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: "In your datasets array, each object can have a `type` property specifying the chart type for that dataset (e.g., 'bar', 'line'). If not specified, it defaults to the chart's main type.",
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['Jan', 'Feb', 'Mar'],
+  datasets: [{
+    type: 'bar',
+    label: 'Bar Dataset',
+    data: [10, 20, 30],
+    backgroundColor: 'rgba(255, 99, 132, 0.5)'
+  }, {
+    type: 'line',
+    label: 'Line Dataset',
+    data: [30, 20, 10],
+    borderColor: 'rgb(54, 162, 235)'
+  }]
+};`,
+        isCode: true,
+      },
+    ],
+  },
+  'stacked-area-chart': {
+    heading: 'Creating Stacked Area Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Stacked area charts are useful for showing how part-to-whole relationships change over time. They are essentially stacked line charts with the area below the line filled in.',
+      },
+      {
+        title: 'Configuration Tip',
+        content: 'For an area chart, set `fill: true` in your dataset. To stack them, set `stacked: true` on the relevant axis (usually the y-axis) in the chart options.',
+      },
+      {
+        title: 'Example Configuration for Chart.js',
+        content: `const options = {
+  scales: {
+    y: {
+      stacked: true
+    }
+  }
+};`,
+        isCode: true,
+      },
+    ],
+  },
+  'bar-chart-negative-values': {
+    heading: 'Handling Negative Values in Chart.js Bar Charts',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: "Chart.js bar charts natively support negative values, rendering them below the axis baseline. This is automatic and requires no special configuration.",
+      },
+      {
+        title: 'Styling Tip',
+        content: 'You can dynamically change bar colors based on their value using a scriptable option for `backgroundColor`. This allows you to, for example, color positive bars green and negative bars red.',
+      },
+      {
+        title: 'Example Scriptable Option',
+        content: `backgroundColor: (context) => {
+  const value = context.raw;
+  return value >= 0 ? 'rgba(75, 192, 192, 0.5)' : 'rgba(255, 99, 132, 0.5)';
+}`,
+        isCode: true,
+      }
+    ],
+  },
+  'biaxial-line-chart': {
+    heading: 'Building Biaxial Charts in Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'A biaxial chart allows you to plot datasets on two different Y-axes, which is useful when comparing data with different units or scales.',
+      },
+      {
+        title: 'Configuration Tip',
+        content: "Define two Y-axis configurations in `options.scales`. Assign each dataset to an axis using the `yAxisID` property in the dataset object.",
+      },
+      {
+        title: 'Example Configuration for Chart.js',
+        content: `const options = {
+  scales: {
+    y: {
+      type: 'linear',
+      display: true,
+      position: 'left',
+    },
+    y1: {
+      type: 'linear',
+      display: true,
+      position: 'right',
+      grid: {
+        drawOnChartArea: false, // only draw grid for first Y axis
+      },
+    },
+  }
+};
+// In your dataset: { label: 'My Data', data: [...], yAxisID: 'y1' }`,
+        isCode: true,
+      },
+    ],
+  },
+  'radial-bar-chart': {
+    heading: 'Implementing Radial Bar Charts',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Radial Bar Charts are not a native chart type in Chart.js. They are essentially bar charts plotted on a polar axis. You can achieve this effect by using a Polar Area chart and customizing it.',
+      },
+      {
+        title: 'Note on Implementation',
+        content: 'To create a radial bar chart effect, you can use a Polar Area chart. For a true radial bar chart with more control, you might need a different library like D3.js or a custom plugin for Chart.js.',
+      },
+    ],
+  },
 };
 
 export const getAiImplementationHelp = async (chartId: string): Promise<AiHelp> => {

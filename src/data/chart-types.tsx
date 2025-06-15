@@ -1,4 +1,4 @@
-import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4, BarChart3, Activity, Layers, Filter, LayoutGrid } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4, BarChart3, Activity, Layers, Filter, LayoutGrid, Combine, Target } from 'lucide-react';
 import React from 'react';
 import {
   BarChart as RechartsBarChart,
@@ -26,6 +26,10 @@ import {
   FunnelChart,
   Funnel,
   Treemap,
+  ComposedChart,
+  Legend,
+  RadialBarChart,
+  RadialBar,
 } from 'recharts';
 
 export interface ChartType {
@@ -504,11 +508,159 @@ const SampleTreemap = () => {
       <Treemap
         data={data}
         dataKey="size"
-        ratio={4 / 3}
+        aspectRatio={4 / 3}
         stroke="#fff"
         fill="#8884d8"
         content={<CustomContent />}
       />
+    </ResponsiveContainer>
+  );
+};
+
+const SampleComposedChart = () => {
+  const data = [
+    { name: 'Page A', uv: 590, pv: 800, amt: 1400 },
+    { name: 'Page B', uv: 868, pv: 967, amt: 1506 },
+    { name: 'Page C', uv: 1397, pv: 1098, amt: 989 },
+    { name: 'Page D', uv: 1480, pv: 1200, amt: 1228 },
+    { name: 'Page E', uv: 1520, pv: 1108, amt: 1100 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <ComposedChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Legend wrapperStyle={{ fontSize: '12px' }} />
+        <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
+        <Bar dataKey="pv" barSize={20} fill="#413ea0" />
+        <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+      </ComposedChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleStackedAreaChart = () => {
+  const data = [
+    { month: 'Jan', a: 20, b: 30, c: 50 },
+    { month: 'Feb', a: 25, b: 35, c: 40 },
+    { month: 'Mar', a: 30, b: 20, c: 50 },
+    { month: 'Apr', a: 35, b: 45, c: 20 },
+    { month: 'May', a: 40, b: 25, c: 35 },
+  ];
+  const COLORS = ['#8884d8', '#82ca9d', '#ffc658'];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsAreaChart data={data} margin={{ top: 10, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Area type="monotone" dataKey="a" stackId="1" stroke={COLORS[0]} fill={COLORS[0]} />
+        <Area type="monotone" dataKey="b" stackId="1" stroke={COLORS[1]} fill={COLORS[1]} />
+        <Area type="monotone" dataKey="c" stackId="1" stroke={COLORS[2]} fill={COLORS[2]} />
+      </RechartsAreaChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleBarChartWithNegativeValues = () => {
+  const data = [
+    { name: 'Page A', uv: 4000 }, { name: 'Page B', uv: -3000 },
+    { name: 'Page C', uv: -2000 }, { name: 'Page D', uv: 2780 },
+    { name: 'Page E', uv: -1890 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsBarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Bar dataKey="uv" fill="hsl(var(--primary))">
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.uv > 0 ? '#82ca9d' : '#ff8042'} />
+          ))}
+        </Bar>
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleBiaxialLineChart = () => {
+  const data = [
+    { name: 'Page A', uv: 4000, pv: 2400 },
+    { name: 'Page B', uv: 3000, pv: 1398 },
+    { name: 'Page C', uv: 2000, pv: 9800 },
+    { name: 'Page D', uv: 2780, pv: 3908 },
+    { name: 'Page E', uv: 1890, pv: 4800 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsLineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis yAxisId="left" stroke="#8884d8" fontSize={12} />
+        <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" fontSize={12} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Legend wrapperStyle={{ fontSize: '12px' }} />
+        <Line yAxisId="left" type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line yAxisId="right" type="monotone" dataKey="uv" stroke="#82ca9d" />
+      </RechartsLineChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleRadialBarChart = () => {
+  const data = [
+    { name: '18-24', uv: 31.47, pv: 2400, fill: '#8884d8' },
+    { name: '25-29', uv: 26.69, pv: 4567, fill: '#83a6ed' },
+    { name: '30-34', uv: 15.69, pv: 1398, fill: '#8dd1e1' },
+    { name: '35-39', uv: 8.22, pv: 9800, fill: '#82ca9d' },
+    { name: '40-49', uv: 8.63, pv: 3908, fill: '#a4de6c' },
+    { name: '50+', uv: 2.63, pv: 4800, fill: '#d0ed57' },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RadialBarChart
+        cx="50%"
+        cy="50%"
+        innerRadius="20%"
+        outerRadius="80%"
+        barSize={10}
+        data={data}
+      >
+        <RadialBar background dataKey="uv" />
+        <Legend iconSize={10} wrapperStyle={{ fontSize: '12px', top: '10%' }} layout="vertical" verticalAlign="middle" align="right" />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+      </RadialBarChart>
     </ResponsiveContainer>
   );
 };
@@ -642,5 +794,45 @@ export const chartTypes: ChartType[] = [
     Icon: LayoutGrid,
     component: SampleTreemap,
     category: 'Hierarchical Data Visualization',
+  },
+  {
+    id: 'composed-chart',
+    name: 'Composed Chart',
+    description: 'A chart that combines multiple chart types, like bar, line, and area, on the same plot.',
+    Icon: Combine,
+    component: SampleComposedChart,
+    category: 'Hybrid/Combination Charts',
+  },
+  {
+    id: 'stacked-area-chart',
+    name: 'Stacked Area Chart',
+    description: 'Shows the trend of the contribution of each value over time. It is like a pie chart changing over time.',
+    Icon: Layers,
+    component: SampleStackedAreaChart,
+    category: 'Trend/Time Series Visualization',
+  },
+  {
+    id: 'bar-chart-negative-values',
+    name: 'Bar Chart with Negative Values',
+    description: 'A bar chart that can display both positive and negative values, useful for showing profits and losses.',
+    Icon: BarChart,
+    component: SampleBarChartWithNegativeValues,
+    category: 'Basic Charts & Graphs',
+  },
+  {
+    id: 'biaxial-line-chart',
+    name: 'Biaxial Line Chart',
+    description: 'A line chart with two Y-axes, allowing for comparison of two variables with different scales.',
+    Icon: LineChart,
+    component: SampleBiaxialLineChart,
+    category: 'Comparative/Relational Charts',
+  },
+  {
+    id: 'radial-bar-chart',
+    name: 'Radial Bar Chart',
+    description: 'A bar chart plotted on a polar coordinate system, instead of a cartesian one.',
+    Icon: Target,
+    component: SampleRadialBarChart,
+    category: 'Specialized / Domain-Specific',
   },
 ];
