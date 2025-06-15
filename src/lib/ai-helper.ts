@@ -1,3 +1,4 @@
+
 export interface AiHelp {
   heading: string;
   sections: Array<{
@@ -321,6 +322,35 @@ const aiResponses: Record<string, AiHelp> = {
       stacked: true
     }
   }
+};`,
+        isCode: true,
+      },
+    ],
+  },
+  'grouped-bar-chart': {
+    heading: 'Building Grouped Bar Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Grouped bar charts display more than one data series in clustered columns. Each data series shares the same axis labels, so vertical bars are grouped by category.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: 'For a grouped bar chart in Chart.js, you will have a single set of labels and multiple datasets. Each dataset object represents a group of bars.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['2022', '2023', '2024'],
+  datasets: [{
+    label: 'Product A',
+    data: [120, 150, 180],
+    backgroundColor: 'rgba(132, 132, 255, 0.5)',
+  }, {
+    label: 'Product B',
+    data: [110, 130, 160],
+    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+  }]
 };`,
         isCode: true,
       },

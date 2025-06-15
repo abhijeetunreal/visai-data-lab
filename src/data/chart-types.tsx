@@ -1,4 +1,4 @@
-import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4 } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4, BarChart3 } from 'lucide-react';
 import React from 'react';
 import {
   BarChart as RechartsBarChart,
@@ -320,6 +320,34 @@ const SampleStackedBarChart = () => {
   );
 };
 
+const SampleGroupedBarChart = () => {
+  const data = [
+    { name: 'Page A', uv: 4000, pv: 2400 },
+    { name: 'Page B', uv: 3000, pv: 1398 },
+    { name: 'Page C', uv: 2000, pv: 9800 },
+    { name: 'Page D', uv: 2780, pv: 3908 },
+    { name: 'Page E', uv: 1890, pv: 4800 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsBarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Bar dataKey="pv" fill="#8884d8" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="uv" fill="#82ca9d" radius={[4, 4, 0, 0]} />
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+};
+
 export const chartTypes: ChartType[] = [
   {
     id: 'bar-chart',
@@ -399,6 +427,14 @@ export const chartTypes: ChartType[] = [
     description: 'A bar chart that stacks multiple data series on top of each other. Good for part-to-whole comparisons.',
     Icon: BarChart4,
     component: SampleStackedBarChart,
+    category: 'Comparative/Relational Charts',
+  },
+  {
+    id: 'grouped-bar-chart',
+    name: 'Grouped Bar Chart',
+    description: 'Compares multiple categories across the same set of variables. Bars are grouped together.',
+    Icon: BarChart3,
+    component: SampleGroupedBarChart,
     category: 'Comparative/Relational Charts',
   },
 ];
