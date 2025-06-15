@@ -22,7 +22,7 @@ const ChartCard: React.FC<ChartCardProps> = ({ chart, style, className }) => {
         </CardHeader>
         <CardContent className="flex-grow flex flex-col pt-4">
           <p className="text-muted-foreground mb-4 flex-grow">{description}</p>
-          <div className="mt-auto -mx-6 -mb-6 rounded-b-lg overflow-hidden">
+          <div className="mt-auto -mx-6 -mb-6 rounded-b-lg overflow-hidden h-[200px]">
             <ChartComponent />
           </div>
         </CardContent>

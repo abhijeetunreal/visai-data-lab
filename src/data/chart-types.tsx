@@ -1,3 +1,4 @@
+
 import { BarChart, LineChart, PieChart } from 'lucide-react';
 import React from 'react';
 import {
@@ -20,7 +21,7 @@ export interface ChartType {
   name: string;
   description: string;
   Icon: React.ElementType;
-  component: React.ElementType;
+  component: React.ComponentType;
 }
 
 const SampleBarChart = () => {
@@ -32,7 +33,7 @@ const SampleBarChart = () => {
     { name: 'May', value: 500 },
   ];
   return (
-    <ResponsiveContainer width="100%" height={200}>
+    <ResponsiveContainer width="100%" height="100%">
       <RechartsBarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
         <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
@@ -59,7 +60,7 @@ const SampleLineChart = () => {
     { name: 'E', uv: 1890 },
   ];
   return (
-    <ResponsiveContainer width="100%" height={200}>
+    <ResponsiveContainer width="100%" height="100%">
       <RechartsLineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
         <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
@@ -86,20 +87,31 @@ const SamplePieChart = () => {
   ];
   const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042'];
   return (
-    <ResponsiveContainer width="100%" height={200}>
-      <RechartsPieChart>
-        <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip
-          contentStyle={{
-            backgroundColor: 'hsl(var(--background))',
-            borderColor: 'hsl(var(--border))',
-          }}
-        />
-      </RechartsPieChart>
+    <ResponsiveContainer width="100%" height="100%">
+      {( {height} ) => (
+        <RechartsPieChart>
+          <Pie 
+            data={data} 
+            dataKey="value" 
+            nameKey="name" 
+            cx="50%" 
+            cy="50%" 
+            outerRadius={(height || 200) * 0.35} 
+            fill="#8884d8" 
+            label
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'hsl(var(--background))',
+              borderColor: 'hsl(var(--border))',
+            }}
+          />
+        </RechartsPieChart>
+      )}
     </ResponsiveContainer>
   );
 };
