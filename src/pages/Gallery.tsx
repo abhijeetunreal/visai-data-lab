@@ -1,6 +1,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Header from '@/components/Header';
+import Hero from '@/components/Hero';
 import ChartCard from '@/components/ChartCard';
 import { chartTypes, ChartType } from '@/data/chart-types';
 import {
@@ -52,8 +53,9 @@ const Gallery = () => {
   return (
     <>
       <Header />
-      <main className="container mx-auto px-4 md:px-6 py-24">
-        <div className="text-center mb-16 animate-fade-in-up">
+      <Hero />
+      <main id="gallery-section" className="container mx-auto px-4 md:px-6 pb-24">
+        <div className="text-center mb-16 animate-fade-in-up pt-16">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Visualization Gallery</h1>
           <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
             Explore a collection of interactive charts. Click on a card to see a larger, more detailed version.
