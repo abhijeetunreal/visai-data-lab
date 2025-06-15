@@ -1,4 +1,4 @@
-import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4, BarChart3 } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4, BarChart3, Activity, Layers, Filter, LayoutGrid } from 'lucide-react';
 import React from 'react';
 import {
   BarChart as RechartsBarChart,
@@ -23,6 +23,9 @@ import {
   ZAxis,
   AreaChart as RechartsAreaChart,
   Area,
+  FunnelChart,
+  Funnel,
+  Treemap,
 } from 'recharts';
 
 export interface ChartType {
@@ -348,6 +351,169 @@ const SampleGroupedBarChart = () => {
   );
 };
 
+const SampleHistogram = () => {
+  const data = [
+    { range: '0-10', value: 30 },
+    { range: '10-20', value: 80 },
+    { range: '20-30', value: 45 },
+    { range: '30-40', value: 60 },
+    { range: '40-50', value: 20 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsBarChart data={data} barGap={0} barCategoryGap={0} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="range" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Bar dataKey="value" fill="hsl(var(--primary))" />
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleDensityPlot = () => {
+  const data = [
+    { x: 0, y: 0 }, { x: 1, y: 2 }, { x: 2, y: 5 }, { x: 3, y: 4 }, { x: 4, y: 2 },
+    { x: 5, y: 6 }, { x: 6, y: 8 }, { x: 7, y: 5 }, { x: 8, y: 3 }, { x: 9, y: 1 }, { x: 10, y: 0 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsAreaChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <defs>
+          <linearGradient id="colorDensity" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+          </linearGradient>
+        </defs>
+        <XAxis dataKey="x" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Area type="natural" dataKey="y" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorDensity)" />
+      </RechartsAreaChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleStreamGraph = () => {
+  const data = [
+    { month: 'Jan', a: 20, b: 30, c: 50 },
+    { month: 'Feb', a: 25, b: 35, c: 40 },
+    { month: 'Mar', a: 30, b: 20, c: 50 },
+    { month: 'Apr', a: 35, b: 45, c: 20 },
+    { month: 'May', a: 40, b: 25, c: 35 },
+  ];
+  const COLORS = ['#8884d8', '#82ca9d', '#ffc658'];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsAreaChart data={data} stackOffset="silhouette" margin={{ top: 10, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Area type="monotone" dataKey="a" stackId="1" stroke={COLORS[0]} fill={COLORS[0]} />
+        <Area type="monotone" dataKey="b" stackId="1" stroke={COLORS[1]} fill={COLORS[1]} />
+        <Area type="monotone" dataKey="c" stackId="1" stroke={COLORS[2]} fill={COLORS[2]} />
+      </RechartsAreaChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleFunnelChart = () => {
+  const data = [
+    { value: 100, name: 'Impressions', fill: '#8884d8' },
+    { value: 80, name: 'Clicks', fill: '#83a6ed' },
+    { value: 50, name: 'Visits', fill: '#8dd1e1' },
+    { value: 40, name: 'Inquiries', fill: '#82ca9d' },
+    { value: 26, name: 'Orders', fill: '#a4de6c' },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <FunnelChart>
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Funnel dataKey="value" data={data} isAnimationActive>
+          {data.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
+        </Funnel>
+      </FunnelChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleTreemap = () => {
+  const data = [
+    { name: 'Electronics', size: 40, children: [{ name: 'Phones', size: 20 }, { name: 'Laptops', size: 20 }] },
+    { name: 'Clothing', size: 30, children: [{ name: 'Shirts', size: 15 }, { name: 'Pants', size: 10 }, { name: 'Shoes', size: 5 }] },
+    { name: 'Books', size: 30 },
+  ];
+  const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042'];
+  
+  const CustomContent = (props: any) => {
+    const { depth, x, y, width, height, index, name } = props;
+    return (
+      <g>
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          style={{
+            fill: COLORS[index % COLORS.length],
+            stroke: '#fff',
+            strokeWidth: 2 / (depth + 1e-10),
+            strokeOpacity: 1 / (depth + 1e-10),
+          }}
+        />
+        <text
+          x={x + width / 2}
+          y={y + height / 2}
+          textAnchor="middle"
+          fill="#fff"
+          fontSize={14}
+        >
+          {name}
+        </text>
+      </g>
+    );
+  };
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <Treemap
+        data={data}
+        dataKey="size"
+        ratio={4 / 3}
+        stroke="#fff"
+        fill="#8884d8"
+        content={<CustomContent />}
+      />
+    </ResponsiveContainer>
+  );
+};
+
+
 export const chartTypes: ChartType[] = [
   {
     id: 'bar-chart',
@@ -436,5 +602,45 @@ export const chartTypes: ChartType[] = [
     Icon: BarChart3,
     component: SampleGroupedBarChart,
     category: 'Comparative/Relational Charts',
+  },
+  {
+    id: 'histogram',
+    name: 'Histogram',
+    description: 'A graphical representation of the distribution of numerical data. An estimate of the probability distribution.',
+    Icon: BarChart,
+    component: SampleHistogram,
+    category: 'Distribution Visualization',
+  },
+  {
+    id: 'density-plot',
+    name: 'Density Plot',
+    description: 'Visualizes the distribution of data over a continuous interval or time period. It is a smoothed version of a histogram.',
+    Icon: Activity,
+    component: SampleDensityPlot,
+    category: 'Distribution Visualization',
+  },
+  {
+    id: 'stream-graph',
+    name: 'Stream Graph',
+    description: 'A type of stacked area graph which is displaced around a central axis, resulting in a flowing, organic shape.',
+    Icon: Layers,
+    component: SampleStreamGraph,
+    category: 'Trend/Time Series Visualization',
+  },
+  {
+    id: 'funnel-chart',
+    name: 'Funnel Chart',
+    description: 'Used to visualize the progressive reduction of data as it passes from one phase to another.',
+    Icon: Filter,
+    component: SampleFunnelChart,
+    category: 'Specialized / Domain-Specific',
+  },
+  {
+    id: 'treemap',
+    name: 'Treemap',
+    description: 'A method for displaying hierarchical data using nested rectangles. Ideal for showing part-to-whole relationships.',
+    Icon: LayoutGrid,
+    component: SampleTreemap,
+    category: 'Hierarchical Data Visualization',
   },
 ];

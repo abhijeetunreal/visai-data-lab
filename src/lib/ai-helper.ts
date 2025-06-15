@@ -1,4 +1,3 @@
-
 export interface AiHelp {
   heading: string;
   sections: Array<{
@@ -352,6 +351,92 @@ const aiResponses: Record<string, AiHelp> = {
     backgroundColor: 'rgba(54, 162, 235, 0.5)',
   }]
 };`,
+        isCode: true,
+      },
+    ],
+  },
+  'histogram': {
+    heading: 'Creating Histograms with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'A histogram is used to show the distribution of a dataset. It groups numbers into ranges and the height of the bar shows how many fall in that range. For a true histogram, set `barPercentage` and `categoryPercentage` to 1 in the options to remove gaps.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['0-10', '10-20', '20-30', '30-40', '40-50'],
+  datasets: [{
+    label: 'Data Distribution',
+    data: [30, 80, 45, 60, 20],
+    backgroundColor: 'rgba(132, 132, 255, 0.6)',
+  }]
+};`,
+        isCode: true,
+      },
+    ],
+  },
+  'density-plot': {
+    heading: 'Implementing Density Plots with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'A density plot is a smoothed, continuous version of a histogram. It can be created using an area chart with a curved line (`tension` > 0) to show the probability density of a continuous variable.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+  datasets: [{
+    label: 'Data Density',
+    data: [2, 5, 8, 6, 4, 3, 5, 7, 6, 3],
+    fill: true,
+    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    borderColor: 'rgb(75, 192, 192)',
+    tension: 0.4
+  }]
+};`,
+        isCode: true,
+      },
+    ],
+  },
+  'stream-graph': {
+    heading: 'Building Stream Graphs with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Stream graphs are a variation of stacked area charts that displays changes in data over time for different categories. They are best for high-volume datasets to discover trends and patterns. This typically requires a plugin for Chart.js.',
+      },
+      {
+        title: 'Note on Implementation',
+        content: 'Chart.js does not natively support stream graphs. You would need a plugin or use a different library like D3.js that has more direct support for this chart type. The visual is similar to a stacked area chart with a `silhouette` offset.',
+      },
+    ],
+  },
+  'funnel-chart': {
+    heading: 'Creating Funnel Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Funnel charts are often used to represent stages in a sales process and show the amount of potential revenue for each stage. They can be created using a dedicated plugin for Chart.js.',
+      },
+      {
+        title: 'Note on Implementation',
+        content: 'A funnel chart is not a standard chart type in Chart.js. A popular plugin to add this functionality is `chartjs-plugin-funnel`.',
+        isCode: true,
+      },
+    ],
+  },
+  'treemap': {
+    heading: 'Implementing Treemaps with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Treemaps are ideal for displaying large amounts of hierarchical data. The space in a treemap is divided into rectangles that are sized and ordered by a quantitative variable.',
+      },
+      {
+        title: 'Note on Implementation',
+        content: 'Chart.js does not natively support treemaps. You would need a plugin like `chartjs-chart-treemap` to add this capability. The plugin handles the complex layout calculations.',
         isCode: true,
       },
     ],
