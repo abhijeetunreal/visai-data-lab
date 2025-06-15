@@ -1,3 +1,4 @@
+
 export interface AiHelp {
   heading: string;
   sections: Array<{
@@ -410,6 +411,20 @@ const aiResponses: Record<string, AiHelp> = {
       {
         title: 'Note on Implementation',
         content: 'Chart.js does not natively support stream graphs. You would need a plugin or use a different library like D3.js that has more direct support for this chart type. The visual is similar to a stacked area chart with a `silhouette` offset.',
+      },
+    ],
+  },
+  'funnel-chart': {
+    heading: 'Creating Funnel Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Funnel charts are often used to represent stages in a sales process and show the amount of potential revenue for each stage. They can be created using a dedicated plugin for Chart.js.',
+      },
+      {
+        title: 'Note on Implementation',
+        content: 'A funnel chart is not a standard chart type in Chart.js. A popular plugin to add this functionality is `chartjs-plugin-funnel`.',
+        isCode: true,
       },
     ],
   },
