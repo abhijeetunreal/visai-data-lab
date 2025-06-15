@@ -1,6 +1,19 @@
-
 import { BarChart, LineChart, PieChart } from 'lucide-react';
 import React from 'react';
+import {
+  BarChart as RechartsBarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+  LineChart as RechartsLineChart,
+  Line,
+  PieChart as RechartsPieChart,
+  Pie,
+  Cell,
+} from 'recharts';
 
 export interface ChartType {
   id: string;
@@ -11,7 +24,6 @@ export interface ChartType {
 }
 
 const SampleBarChart = () => {
-  const { BarChart: RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } = require('recharts');
   const data = [
     { name: 'Jan', value: 400 },
     { name: 'Feb', value: 300 },
@@ -39,7 +51,6 @@ const SampleBarChart = () => {
 };
 
 const SampleLineChart = () => {
-  const { LineChart: RechartsLineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } = require('recharts');
   const data = [
     { name: 'A', uv: 4000 },
     { name: 'B', uv: 3000 },
@@ -67,7 +78,6 @@ const SampleLineChart = () => {
 };
 
 const SamplePieChart = () => {
-  const { PieChart: RechartsPieChart, Pie, Tooltip, ResponsiveContainer, Cell } = require('recharts');
   const data = [
     { name: 'Group A', value: 400 },
     { name: 'Group B', value: 300 },

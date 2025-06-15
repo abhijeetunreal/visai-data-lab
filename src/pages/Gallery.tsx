@@ -9,7 +9,7 @@ const Gallery = () => {
     <>
       <Header />
       <main className="container mx-auto px-4 md:px-6 py-24">
-        <div className="text-center mb-16 animate-fade-in-up" style={{ opacity: 0 }}>
+        <div className="text-center mb-16 animate-fade-in-up">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Visualization Gallery</h1>
           <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
             Explore a collection of interactive charts. Hover over them to see details.
@@ -22,7 +22,7 @@ const Gallery = () => {
             <ChartCard 
               key={chart.id} 
               chart={chart} 
-              style={{ animationDelay: `${index * 150 + 200}ms`, opacity: 0 }}
+              style={{ animationDelay: `${index * 150 + 200}ms` }}
               className="animate-fade-in-up"
             />
           ))}
