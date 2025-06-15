@@ -4,6 +4,9 @@ import SankeyDiagramExample from "@/components/charts/SankeyDiagramExample";
 import DumbbellPlotExample from "@/components/charts/DumbbellPlotExample";
 import BoxPlotExample from "@/components/charts/BoxPlotExample";
 import WordCloudExample from "@/components/charts/WordCloudExample";
+import BarChartExample from "@/components/charts/BarChartExample";
+import LineChartExample from "@/components/charts/LineChartExample";
+import PieChartExample from "@/components/charts/PieChartExample";
 
 import {
   Filter,
@@ -11,13 +14,13 @@ import {
   GitCommitHorizontal,
   Box,
   Cloud,
+  BarChart4,
+  LineChart,
+  PieChart as PieChartIcon,
 } from 'lucide-react';
 import { ChartCandlestick, GitCommit, HelpCircle, GanttChart } from 'lucide-react';
 
 /*
-import BarChartExample from "@/components/charts/BarChartExample";
-import LineChartExample from "@/components/charts/LineChartExample";
-import PieChartExample from "@/components/charts/PieChartExample";
 import DoughnutChartExample from "@/components/charts/DoughnutChartExample";
 import PolarAreaChartExample from "@/components/charts/PolarAreaChartExample";
 import RadarChartExample from "@/components/charts/RadarChartExample";
@@ -50,27 +53,30 @@ export interface ChartType {
 }
 
 export const chartTypes: ChartType[] = [
-  // {
-  //   id: 'bar-chart',
-  //   name: 'Bar Chart',
-  //   description: 'A bar chart is a way of comparing a number of different items.',
-  //   category: 'Comparative/Relational Charts',
-  //   component: BarChartExample,
-  // },
-  // {
-  //   id: 'line-chart',
-  //   name: 'Line Chart',
-  //   description: 'A line chart or line graph is a type of chart which displays information as a series of data points called \'markers\' connected by straight line segments.',
-  //   category: 'Trend/Time Series Visualization',
-  //   component: LineChartExample,
-  // },
-  // {
-  //   id: 'pie-chart',
-  //   name: 'Pie Chart',
-  //   description: 'A pie chart (or a circle chart) is a circular statistical graphic, which is divided into slices to illustrate numerical proportion.',
-  //   category: 'Part-to-Whole Visualization',
-  //   component: PieChartExample,
-  // },
+  {
+    id: 'bar-chart',
+    name: 'Bar Chart',
+    description: 'A standard chart for comparing values across different categories.',
+    category: 'Comparative/Relational Charts',
+    component: BarChartExample,
+    Icon: BarChart4,
+  },
+  {
+    id: 'line-chart',
+    name: 'Line Chart',
+    description: 'Displays information as a series of data points connected by straight line segments.',
+    category: 'Trend/Time Series Visualization',
+    component: LineChartExample,
+    Icon: LineChart,
+  },
+  {
+    id: 'pie-chart',
+    name: 'Pie Chart',
+    description: 'A circular statistical graphic, which is divided into slices to illustrate numerical proportion.',
+    category: 'Part-to-Whole Visualization',
+    component: PieChartExample,
+    Icon: PieChartIcon,
+  },
   // {
   //   id: 'doughnut-chart',
   //   name: 'Doughnut Chart',
