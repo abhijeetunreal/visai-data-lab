@@ -1,5 +1,4 @@
-
-import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4 } from 'lucide-react';
 import React from 'react';
 import {
   BarChart as RechartsBarChart,
@@ -22,6 +21,8 @@ import {
   ScatterChart as RechartsScatterChart,
   Scatter,
   ZAxis,
+  AreaChart as RechartsAreaChart,
+  Area,
 } from 'recharts';
 
 export interface ChartType {
@@ -258,6 +259,67 @@ const SampleBubbleChart = () => {
   );
 };
 
+const SampleAreaChart = () => {
+  const data = [
+    { name: 'Jan', value: 400 },
+    { name: 'Feb', value: 300 },
+    { name: 'Mar', value: 600 },
+    { name: 'Apr', value: 800 },
+    { name: 'May', value: 500 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsAreaChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <defs>
+          <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorValue)" />
+      </RechartsAreaChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleStackedBarChart = () => {
+  const data = [
+    { name: 'Page A', uv: 4000, pv: 2400 },
+    { name: 'Page B', uv: 3000, pv: 1398 },
+    { name: 'Page C', uv: 2000, pv: 9800 },
+    { name: 'Page D', uv: 2780, pv: 3908 },
+    { name: 'Page E', uv: 1890, pv: 4800 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsBarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Bar dataKey="pv" stackId="a" fill="#8884d8" radius={[0, 0, 0, 0]} />
+        <Bar dataKey="uv" stackId="a" fill="#82ca9d" radius={[4, 4, 0, 0]} />
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+};
+
 export const chartTypes: ChartType[] = [
   {
     id: 'bar-chart',
@@ -321,6 +383,22 @@ export const chartTypes: ChartType[] = [
     description: 'A variation of a scatter chart where a third data dimension is shown by the size of the markers (bubbles).',
     Icon: Shapes,
     component: SampleBubbleChart,
+    category: 'Comparative/Relational Charts',
+  },
+  {
+    id: 'area-chart',
+    name: 'Area Chart',
+    description: 'An area chart combines a line chart with shading to show the volume of data over time or across categories.',
+    Icon: AreaChart,
+    component: SampleAreaChart,
+    category: 'Basic Charts & Graphs',
+  },
+  {
+    id: 'stacked-bar-chart',
+    name: 'Stacked Bar Chart',
+    description: 'A bar chart that stacks multiple data series on top of each other. Good for part-to-whole comparisons.',
+    Icon: BarChart4,
+    component: SampleStackedBarChart,
     category: 'Comparative/Relational Charts',
   },
 ];

@@ -275,6 +275,57 @@ const aiResponses: Record<string, AiHelp> = {
       },
     ],
   },
+  'area-chart': {
+    heading: 'Implementing Area Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Area charts are like line charts but with the area below the line filled in. They are useful for visualizing quantitative data and showing volume or magnitude over a continuous dimension.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['January', 'February', 'March', 'April', 'May'],
+  datasets: [{
+    label: 'Website Traffic',
+    data: [65, 59, 80, 81, 56],
+    fill: true,
+    borderColor: 'rgb(75, 192, 192)',
+    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    tension: 0.1
+  }]
+};`,
+        isCode: true,
+      },
+    ],
+  },
+  'stacked-bar-chart': {
+    heading: 'Creating Stacked Bar Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Stacked bar charts are used to compare parts of a whole. Each bar represents a total, and segments within the bar represent different categories or parts of that total.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: 'In Chart.js, you enable stacking on the x and y axes in the chart options. Each dataset will then be stacked on top of the previous one.',
+      },
+      {
+        title: 'Example Configuration for Chart.js',
+        content: `const options = {
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true
+    }
+  }
+};`,
+        isCode: true,
+      },
+    ],
+  },
 };
 
 export const getAiImplementationHelp = async (chartId: string): Promise<AiHelp> => {
