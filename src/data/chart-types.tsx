@@ -1,3 +1,4 @@
+
 import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter } from 'lucide-react';
 import React from 'react';
 import {
@@ -29,6 +30,7 @@ export interface ChartType {
   description: string;
   Icon: React.ElementType;
   component: React.ComponentType;
+  category: string;
 }
 
 const SampleBarChart = () => {
@@ -259,10 +261,11 @@ const SampleBubbleChart = () => {
 export const chartTypes: ChartType[] = [
   {
     id: 'bar-chart',
-    name: 'Bar Chart',
+    name: 'Column Chart',
     description: 'Presents categorical data with rectangular bars. Ideal for comparing values across categories.',
     Icon: BarChart,
     component: SampleBarChart,
+    category: 'Basic Charts & Graphs',
   },
   {
     id: 'line-chart',
@@ -270,6 +273,7 @@ export const chartTypes: ChartType[] = [
     description: 'Displays information as a series of data points connected by lines. Best for showing trends over time.',
     Icon: LineChart,
     component: SampleLineChart,
+    category: 'Basic Charts & Graphs',
   },
   {
     id: 'pie-chart',
@@ -277,6 +281,7 @@ export const chartTypes: ChartType[] = [
     description: 'A circular graphic divided into slices to illustrate numerical proportion. Use for showing parts of a whole.',
     Icon: PieChart,
     component: SamplePieChart,
+    category: 'Basic Charts & Graphs',
   },
   {
     id: 'doughnut-chart',
@@ -284,6 +289,7 @@ export const chartTypes: ChartType[] = [
     description: 'Similar to a pie chart, but with the center cut out. Useful for displaying proportions with a space for a central label.',
     Icon: Donut,
     component: SampleDoughnutChart,
+    category: 'Basic Charts & Graphs',
   },
   {
     id: 'polar-area-chart',
@@ -291,6 +297,7 @@ export const chartTypes: ChartType[] = [
     description: 'A circular chart where each category has equal angular slices but different radii based on value.',
     Icon: Radar,
     component: SamplePolarAreaChart,
+    category: 'Multivariate Visualization',
   },
   {
     id: 'radar-chart',
@@ -298,6 +305,7 @@ export const chartTypes: ChartType[] = [
     description: 'Displays multivariate data on axes starting from the same point. Also known as a spider or web chart.',
     Icon: Radar,
     component: SampleRadarChart,
+    category: 'Comparative/Relational Charts',
   },
   {
     id: 'scatter-chart',
@@ -305,6 +313,7 @@ export const chartTypes: ChartType[] = [
     description: 'Shows the relationship between two numerical variables by plotting points on a 2D plane.',
     Icon: ChartScatter,
     component: SampleScatterChart,
+    category: 'Basic Charts & Graphs',
   },
   {
     id: 'bubble-chart',
@@ -312,5 +321,6 @@ export const chartTypes: ChartType[] = [
     description: 'A variation of a scatter chart where a third data dimension is shown by the size of the markers (bubbles).',
     Icon: Shapes,
     component: SampleBubbleChart,
+    category: 'Comparative/Relational Charts',
   },
 ];

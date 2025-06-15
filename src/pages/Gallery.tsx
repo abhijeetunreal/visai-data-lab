@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Header from '@/components/Header';
 import ChartCard from '@/components/ChartCard';
 import { chartTypes, ChartType } from '@/data/chart-types';
@@ -35,6 +35,20 @@ const Gallery = () => {
     }
   };
 
+  const groupedCharts = useMemo(() => {
+    return chartTypes.reduce((acc, chart) => {
+      const { category } = chart;
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(chart);
+      return acc;
+    }, {} as Record<string, ChartType[]>);
+  }, []);
+
+  const categories = Object.keys(groupedCharts).sort((a, b) => a.localeCompare(b));
+
+
   return (
     <>
       <Header />
@@ -45,21 +59,31 @@ const Gallery = () => {
             Explore a collection of interactive charts. Click on a card to see a larger, more detailed version.
           </p>
         </div>
-        <div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {chartTypes.map((chart, index) => (
-            <div
-              key={chart.id}
-              className="cursor-pointer"
-              onClick={() => setSelectedChart(chart)}
-            >
-              <ChartCard 
-                chart={chart} 
-                style={{ animationDelay: `${index * 150 + 200}ms` }}
-                className="animate-fade-in-up"
-              />
-            </div>
+        <div className="space-y-16">
+          {categories.map((category) => (
+            <section key={category} className="animate-fade-in-up" style={{animationDelay: '300ms'}}>
+              <h2 className="text-3xl font-bold tracking-tight mb-8 flex items-center">
+                <span className="text-primary mr-3 text-2xl">🔹</span>
+                {category}
+              </h2>
+              <div 
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
+                {groupedCharts[category].map((chart, index) => (
+                  <div
+                    key={chart.id}
+                    className="cursor-pointer"
+                    onClick={() => setSelectedChart(chart)}
+                  >
+                    <ChartCard 
+                      chart={chart} 
+                      style={{ animationDelay: `${index * 100 + 400}ms` }}
+                      className="animate-fade-in-up"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       </main>
