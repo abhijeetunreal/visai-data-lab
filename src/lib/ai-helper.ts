@@ -1,5 +1,3 @@
-
-
 export interface AiHelp {
   heading: string;
   sections: Array<{
@@ -103,6 +101,177 @@ const aiResponses: Record<string, AiHelp> = {
       {
         title: 'Design Best Practice',
         content: "Limit the number of slices to 5-7 for readability. For smaller segments, consider a bar chart instead. Use Chart.js's options to customize tooltips to show percentages or absolute values.",
+      },
+    ],
+  },
+  'doughnut-chart': {
+    heading: 'Creating Doughnut Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Doughnut charts are similar to pie charts but with the center cut out. They are great for showing proportions of a whole while allowing space in the middle for additional information, like a total value.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: "The data structure is identical to a pie chart's. You'll need labels for each segment and a dataset with the corresponding values. Chart.js makes it easy to specify background colors for each segment.",
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['Red', 'Blue', 'Yellow'],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};`,
+        isCode: true,
+      },
+      {
+        title: 'Design Best Practice',
+        content: 'Use the `cutout` property in the chart options to control the size of the center hole. A larger cutout can make the chart feel lighter and more modern. Avoid using too many segments to keep it readable.',
+      },
+    ],
+  },
+  'polar-area-chart': {
+    heading: 'Visualizing with Polar Area Charts in Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Polar area charts are similar to pie charts, but each segment has the same angle – the radius of the segment differs depending on the value. This makes them useful for comparing values that are not part of a whole.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: 'Like a pie chart, you provide labels and a dataset with values. The main difference is in the visualization, which Chart.js handles automatically when you specify the chart type as `polarArea`.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [65, 59, 90, 81, 56, 55, 40],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.5)',
+      'rgba(75, 192, 192, 0.5)',
+      'rgba(255, 205, 86, 0.5)',
+      'rgba(201, 203, 207, 0.5)',
+      'rgba(54, 162, 235, 0.5)',
+      'rgba(153, 102, 255, 0.5)',
+      'rgba(255, 159, 64, 0.5)'
+    ]
+  }]
+};`,
+        isCode: true,
+      },
+      {
+        title: 'Design Best Practice',
+        content: 'Polar area charts are visually engaging. Use a transparent background color for the segments to create an overlapping effect, which can be aesthetically pleasing. Ensure the scale starts at zero for accurate representation.',
+      },
+    ],
+  },
+  'radar-chart': {
+    heading: 'Building Radar Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Radar charts (or spider charts) are a way of showing multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: 'You will have labels for each axis, and then one or more datasets. Each dataset represents an entity being compared, with values corresponding to each axis label.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['Strength', 'Agility', 'Intellect', 'Stamina', 'Charisma'],
+  datasets: [{
+    label: 'Hero',
+    data: [65, 59, 90, 81, 56],
+    fill: true,
+    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    borderColor: 'rgb(255, 99, 132)',
+    pointBackgroundColor: 'rgb(255, 99, 132)',
+  }, {
+    label: 'Villain',
+    data: [28, 48, 40, 19, 96],
+    fill: true,
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderColor: 'rgb(54, 162, 235)',
+    pointBackgroundColor: 'rgb(54, 162, 235)',
+  }]
+};`,
+        isCode: true,
+      },
+      {
+        title: 'Design Best Practice',
+        content: "Radar charts are great for comparing multiple entities across several metrics. Don't overcrowd the chart with too many datasets or variables, as it can become hard to read. Use distinct colors for each dataset.",
+      },
+    ],
+  },
+  'scatter-chart': {
+    heading: 'Implementing Scatter Charts in Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Scatter charts are used to plot data points on a horizontal and a vertical axis in the attempt to show how much one variable is affected by another. Each point has an x and y value.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: 'The dataset for a scatter chart is an array of objects, where each object has `x` and `y` properties. This allows for plotting individual points on the graph.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  datasets: [{
+    label: 'Test Scores vs. Study Hours',
+    data: [{x: 1, y: 65}, {x: 2, y: 75}, {x: 3, y: 80}, {x: 3.5, y: 88}, {x: 5, y: 95}],
+    backgroundColor: 'rgb(255, 99, 132)'
+  }]
+};`,
+        isCode: true,
+      },
+      {
+        title: 'Design Best Practice',
+        content: 'Use a clear and descriptive label for each axis. Tooltips are very important on scatter plots to show the exact coordinates of a point on hover. Chart.js options allow for extensive customization of axes and tooltips.',
+      },
+    ],
+  },
+  'bubble-chart': {
+    heading: 'Creating Bubble Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'A bubble chart is a variation of a scatter chart in which the data points are replaced with bubbles, and an additional dimension of the data is represented in the size of the bubbles.',
+      },
+      {
+        title: 'Data Structure Tip',
+        content: 'The data structure is similar to a scatter chart, but each data point object also includes an `r` property for the radius of the bubble.',
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  datasets: [{
+    label: 'Products',
+    data: [
+      {x: 20, y: 30, r: 15}, // {sales, profit, market share}
+      {x: 40, y: 10, r: 10},
+      {x: 30, y: 25, r: 25},
+      {x: 15, y: 35, r: 12}
+    ],
+    backgroundColor: 'rgba(255, 99, 132, 0.5)'
+  }]
+};`,
+        isCode: true,
+      },
+      {
+        title: 'Design Best Practice',
+        content: 'Bubble charts can represent three dimensions of data, making them quite powerful. Make sure the bubble size scaling is meaningful and clearly explained in a legend or tooltip. Avoid overlapping bubbles if possible for clarity.',
       },
     ],
   },

@@ -1,4 +1,4 @@
-import { BarChart, LineChart, PieChart } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ScatterPlot } from 'lucide-react';
 import React from 'react';
 import {
   BarChart as RechartsBarChart,
@@ -13,6 +13,14 @@ import {
   PieChart as RechartsPieChart,
   Pie,
   Cell,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar as RechartsRadar,
+  ScatterChart as RechartsScatterChart,
+  Scatter,
+  ZAxis,
 } from 'recharts';
 
 export interface ChartType {
@@ -112,6 +120,142 @@ const SamplePieChart = () => {
   );
 };
 
+const SampleDoughnutChart = () => {
+  const data = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+  ];
+  const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042'];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsPieChart>
+        <Pie
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius="60%"
+          outerRadius="80%"
+          dataKey="value"
+          label
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+      </RechartsPieChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SamplePolarAreaChart = () => {
+  const data = [
+    { subject: 'Math', A: 120, fullMark: 150 },
+    { subject: 'History', A: 65, fullMark: 150 },
+    { subject: 'Physics', A: 85, fullMark: 150 },
+    { subject: 'English', A: 86, fullMark: 150 },
+    { subject: 'Geography', A: 99, fullMark: 150 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+        <PolarGrid stroke="hsl(var(--border))" />
+        <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
+        <RechartsRadar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+      </RadarChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleRadarChart = () => {
+  const data = [
+    { subject: 'Eating', A: 120, B: 110, fullMark: 150 },
+    { subject: 'Drinking', A: 98, B: 130, fullMark: 150 },
+    { subject: 'Sleeping', A: 86, B: 130, fullMark: 150 },
+    { subject: 'Designing', A: 99, B: 100, fullMark: 150 },
+    { subject: 'Coding', A: 85, B: 90, fullMark: 150 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+        <PolarGrid stroke="hsl(var(--border))" />
+        <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}/>
+        <PolarRadiusAxis angle={30} domain={[0, 150]} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}/>
+        <RechartsRadar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+        <RechartsRadar name="Lily" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+      </RadarChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleScatterChart = () => {
+  const data = [
+    { x: 100, y: 200 }, { x: 120, y: 100 },
+    { x: 170, y: 300 }, { x: 140, y: 250 },
+    { x: 150, y: 400 }, { x: 110, y: 280 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsScatterChart margin={{ top: 20, right: 20, bottom: 20, left: -10 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis type="number" dataKey="x" name="stature" unit="cm" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis type="number" dataKey="y" name="weight" unit="kg" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip cursor={{ strokeDasharray: '3 3' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Scatter name="A school" data={data} fill="hsl(var(--primary))" />
+      </RechartsScatterChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleBubbleChart = () => {
+  const data = [
+    { x: 100, y: 200, z: 200 }, { x: 120, y: 100, z: 260 },
+    { x: 170, y: 300, z: 400 }, { x: 140, y: 250, z: 280 },
+    { x: 150, y: 400, z: 500 }, { x: 110, y: 280, z: 200 },
+  ];
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsScatterChart margin={{ top: 20, right: 20, bottom: 20, left: -10 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis type="number" dataKey="x" name="stature" unit="cm" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis type="number" dataKey="y" name="weight" unit="kg" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <ZAxis type="number" dataKey="z" range={[60, 400]} name="score" unit="km" />
+        <Tooltip cursor={{ strokeDasharray: '3 3' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Scatter name="A school" data={data} fill="hsl(var(--primary))" shape="circle" />
+      </RechartsScatterChart>
+    </ResponsiveContainer>
+  );
+};
+
 export const chartTypes: ChartType[] = [
   {
     id: 'bar-chart',
@@ -133,5 +277,40 @@ export const chartTypes: ChartType[] = [
     description: 'A circular graphic divided into slices to illustrate numerical proportion. Use for showing parts of a whole.',
     Icon: PieChart,
     component: SamplePieChart,
+  },
+  {
+    id: 'doughnut-chart',
+    name: 'Doughnut Chart',
+    description: 'Similar to a pie chart, but with the center cut out. Useful for displaying proportions with a space for a central label.',
+    Icon: Donut,
+    component: SampleDoughnutChart,
+  },
+  {
+    id: 'polar-area-chart',
+    name: 'Polar Area Chart',
+    description: 'A circular chart where each category has equal angular slices but different radii based on value.',
+    Icon: Radar,
+    component: SamplePolarAreaChart,
+  },
+  {
+    id: 'radar-chart',
+    name: 'Radar Chart',
+    description: 'Displays multivariate data on axes starting from the same point. Also known as a spider or web chart.',
+    Icon: Radar,
+    component: SampleRadarChart,
+  },
+  {
+    id: 'scatter-chart',
+    name: 'Scatter Chart',
+    description: 'Shows the relationship between two numerical variables by plotting points on a 2D plane.',
+    Icon: ScatterPlot,
+    component: SampleScatterChart,
+  },
+  {
+    id: 'bubble-chart',
+    name: 'Bubble Chart',
+    description: 'A variation of a scatter chart where a third data dimension is shown by the size of the markers (bubbles).',
+    Icon: Shapes,
+    component: SampleBubbleChart,
   },
 ];
