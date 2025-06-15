@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import ChartCard from '@/components/ChartCard';
@@ -85,7 +86,7 @@ const Gallery = () => {
                   <selectedChart.component />
                 </div>
               </div>
-              <div className="md:col-span-2 bg-secondary/30 border-l p-6 flex flex-col h-full">
+              <div className="md:col-span-2 bg-secondary/30 border-l p-6 flex flex-col h-full min-h-0">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
                   <Sparkles className="h-5 w-5 mr-2 text-primary" />
                   Implementation Assistant
