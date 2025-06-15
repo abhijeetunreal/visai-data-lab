@@ -565,6 +565,87 @@ const aiResponses: Record<string, AiHelp> = {
       },
     ],
   },
+  'waterfall-chart': {
+    heading: 'Building Waterfall Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Waterfall charts show a running total as values are added or subtracted. They are useful for understanding the cumulative effect of sequential positive and negative values.',
+      },
+      {
+        title: 'Implementation with Chart.js',
+        content: "Chart.js does not have a native waterfall chart type. It can be created using a floating bar chart. You provide an array of two numbers for each bar's data `[start, end]`. This requires pre-calculating the start and end points for each bar.",
+        isCode: false,
+      },
+      {
+        title: 'Example Data Structure',
+        content: `const data = {
+  labels: ['Revenue', 'COGS', 'Gross Profit', 'Opex', 'Net Profit'],
+  datasets: [{
+    label: 'Financials',
+    data: [
+      [0, 4000],   // Revenue
+      [4000, 2800], // COGS (-1200)
+      [0, 2800],   // Gross Profit (Total)
+      [2800, 2000], // Opex (-800)
+      [0, 2000]    // Net Profit (Total)
+    ],
+    // ... styling
+  }]
+};`,
+        isCode: true,
+      }
+    ],
+  },
+  'heatmap': {
+    heading: 'Creating Heatmaps with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Heatmaps represent data values as colors in a grid. They are excellent for showing the relationship between two variables and revealing patterns or concentrations.',
+      },
+      {
+        title: 'Note on Implementation',
+        content: 'Chart.js does not have a native heatmap chart type. You can use a plugin like `chartjs-chart-matrix` to create heatmaps. This plugin adds a `matrix` chart type that you can use.',
+        isCode: false,
+      },
+      {
+        title: 'Alternative Approach',
+        content: "Without a plugin, a heatmap-like effect can be simulated using a Bubble chart where all bubbles have the same size and their color is determined by a third variable. You'd set the `pointStyle` to `'rect'`.",
+        isCode: false,
+      },
+    ],
+  },
+  'gantt-chart': {
+    heading: 'Implementing Gantt Charts with Chart.js',
+    sections: [
+      {
+        title: 'Core Concept',
+        content: 'Gantt charts are a type of bar chart that illustrates a project schedule. The bars show the start and finish dates of the different tasks of a project.',
+      },
+      {
+        title: 'Implementation with Chart.js',
+        content: "This can be achieved with a horizontal floating bar chart. The data for each bar is an array with two values `[start_time, end_time]`. You set `indexAxis: 'y'` in the options for a horizontal layout.",
+        isCode: false,
+      },
+      {
+        title: 'Example Data for Chart.js',
+        content: `const data = {
+  labels: ['Task A', 'Task B', 'Task C'],
+  datasets: [{
+    label: 'Project Timeline',
+    data: [
+      [Date.parse('2024-01-01'), Date.parse('2024-01-10')],
+      [Date.parse('2024-01-05'), Date.parse('2024-01-15')],
+      [Date.parse('2024-01-12'), Date.parse('2024-01-20')]
+    ],
+    backgroundColor: 'rgba(132, 132, 255, 0.6)'
+  }]
+};`,
+        isCode: true,
+      }
+    ],
+  },
 };
 
 export const getAiImplementationHelp = async (chartId: string): Promise<AiHelp> => {

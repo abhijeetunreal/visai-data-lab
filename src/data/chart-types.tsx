@@ -1,4 +1,4 @@
-import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4, BarChart3, Activity, Layers, Filter, LayoutGrid, Combine, Target } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Donut, Radar, Shapes, ChartScatter, AreaChart, BarChart4, BarChart3, Activity, Layers, Filter, LayoutGrid, Combine, Target, TrendingUp, ListChecks } from 'lucide-react';
 import React from 'react';
 import {
   BarChart as RechartsBarChart,
@@ -665,6 +665,146 @@ const SampleRadialBarChart = () => {
   );
 };
 
+const SampleWaterfallChart = () => {
+  const data = [
+    { name: 'Revenue', change: 4000 },
+    { name: 'COGS', change: -1200 },
+    { name: 'Gross Profit' },
+    { name: 'Opex', change: -800 },
+    { name: 'Net Profit' },
+  ];
+
+  let cumulative = 0;
+  const processedData = data.map(item => {
+    const isTotal = typeof item.change === 'undefined';
+    let value = item.change;
+    let start = cumulative;
+
+    if (isTotal) {
+      value = cumulative;
+      start = 0;
+    } else {
+      cumulative += item.change;
+    }
+    
+    return {
+      name: item.name,
+      start: value > 0 ? start : cumulative,
+      value: Math.abs(value),
+      fill: isTotal ? 'hsl(var(--primary))' : value > 0 ? '#82ca9d' : '#ff8042',
+      isTotal,
+      label: value,
+    };
+  });
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsBarChart data={processedData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+          formatter={(value, name, props) => {
+            return [props.payload.label, props.payload.isTotal ? 'Total' : 'Change'];
+          }}
+        />
+        <Bar dataKey="start" stackId="a" fill="transparent" />
+        <Bar dataKey="value" stackId="a">
+           {processedData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.fill} />
+          ))}
+        </Bar>
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleHeatmap = () => {
+  const data = [];
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  const hours = ['12a', '4a', '8a', '12p', '4p', '8p'];
+  for (let i = 0; i < days.length; i++) {
+    for (let j = 0; j < hours.length; j++) {
+      data.push({
+        day: i,
+        hour: j,
+        value: Math.floor(Math.random() * 100),
+      });
+    }
+  }
+
+  const getColor = (value: number) => {
+    if (value > 80) return '#8884d8';
+    if (value > 60) return '#82ca9d';
+    if (value > 40) return '#ffc658';
+    if (value > 20) return '#ff8042';
+    return 'hsl(var(--muted))';
+  };
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis type="category" dataKey="hour" name="hour" tickFormatter={(tick) => hours[tick]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis type="category" dataKey="day" name="day" tickFormatter={(tick) => days[tick]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <Tooltip cursor={{ strokeDasharray: '3 3' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+        <Scatter data={data} shape="square" isAnimationActive={false}>
+            {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={getColor(entry.value)} />
+            ))}
+        </Scatter>
+      </RechartsScatterChart>
+    </ResponsiveContainer>
+  );
+};
+
+const SampleGanttChart = () => {
+  const data = [
+    { task: 'Planning', start: 0, end: 4 },
+    { task: 'Design', start: 2, end: 6 },
+    { task: 'Development', start: 5, end: 12 },
+    { task: 'Testing', start: 10, end: 14 },
+    { task: 'Deployment', start: 13, end: 15 },
+  ];
+  
+  const processedData = data.map(item => ({
+    ...item,
+    duration: item.end - item.start,
+  }));
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsBarChart data={processedData} layout="vertical" margin={{ top: 5, right: 20, left: 30, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis type="number" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <YAxis type="category" dataKey="task" stroke="hsl(var(--muted-foreground))" fontSize={12} width={80} />
+        <Tooltip
+          cursor={{ fill: 'hsl(var(--accent))' }}
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+          formatter={(value, name, props) => {
+            if (name === 'duration') return [`${props.payload.start} - ${props.payload.end}`, 'Timeline'];
+            return null;
+          }}
+        />
+        <Bar dataKey="start" stackId="a" fill="transparent" />
+        <Bar dataKey="duration" stackId="a" fill="hsl(var(--primary))" radius={[4, 4, 4, 4]} />
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+};
 
 export const chartTypes: ChartType[] = [
   {
@@ -834,5 +974,29 @@ export const chartTypes: ChartType[] = [
     Icon: Target,
     component: SampleRadialBarChart,
     category: 'Specialized / Domain-Specific',
+  },
+  {
+    id: 'waterfall-chart',
+    name: 'Waterfall Chart',
+    description: 'Visualizes the cumulative effect of sequentially introduced positive or negative values.',
+    Icon: TrendingUp,
+    component: SampleWaterfallChart,
+    category: 'Specialized / Domain-Specific',
+  },
+  {
+    id: 'heatmap',
+    name: 'Heatmap',
+    description: 'A graphical representation of data where values are depicted by color.',
+    Icon: LayoutGrid,
+    component: SampleHeatmap,
+    category: 'Multivariate Visualization',
+  },
+  {
+    id: 'gantt-chart',
+    name: 'Gantt Chart',
+    description: 'Illustrates a project schedule, showing the start and finish dates of terminal elements and summary elements of a project.',
+    Icon: ListChecks,
+    component: SampleGanttChart,
+    category: 'Trend/Time Series Visualization',
   },
 ];
