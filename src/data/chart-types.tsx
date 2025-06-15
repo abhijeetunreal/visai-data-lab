@@ -1,4 +1,3 @@
-
 import { BarChart, LineChart, PieChart } from 'lucide-react';
 import React from 'react';
 import {
@@ -88,30 +87,27 @@ const SamplePieChart = () => {
   const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042'];
   return (
     <ResponsiveContainer width="100%" height="100%">
-      {( {height} ) => (
-        <RechartsPieChart>
-          <Pie 
-            data={data} 
-            dataKey="value" 
-            nameKey="name" 
-            cx="50%" 
-            cy="50%" 
-            outerRadius={(height || 200) * 0.35} 
-            fill="#8884d8" 
-            label
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: 'hsl(var(--background))',
-              borderColor: 'hsl(var(--border))',
-            }}
-          />
-        </RechartsPieChart>
-      )}
+      <RechartsPieChart>
+        <Pie
+          data={data}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius="80%"
+          label
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+          }}
+        />
+      </RechartsPieChart>
     </ResponsiveContainer>
   );
 };
