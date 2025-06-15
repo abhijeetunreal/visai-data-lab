@@ -1,4 +1,3 @@
-
 export interface AiHelp {
   heading: string;
   sections: Array<{
@@ -645,97 +644,6 @@ const aiResponses: Record<string, AiHelp> = {
 };`,
         isCode: true,
       }
-    ],
-  },
-  'funnel-chart': {
-    heading: 'Creating Funnel Charts with Recharts',
-    sections: [
-      {
-        title: 'Core Concept',
-        content: 'Funnel charts are ideal for visualizing stages in a process, such as a sales pipeline or user conversion path. Recharts provides a dedicated FunnelChart component for this.',
-      },
-      {
-        title: 'Data Structure Tip',
-        content: 'You will need an array of objects, where each object represents a stage in the funnel and has a `value` and `name`. You can also add a `fill` property for color.',
-      },
-      {
-        title: 'Example Data for Recharts',
-        content: `const data = [
-  { value: 100, name: 'Website Visits', fill: '#8884d8' },
-  { value: 80, name: 'Downloads', fill: '#83a6ed' },
-  { value: 50, name: 'Signups', fill: '#8dd1e1' },
-];`,
-        isCode: true,
-      },
-    ],
-  },
-  'sankey-diagram': {
-    heading: 'Building Sankey Diagrams with Recharts',
-    sections: [
-      {
-        title: 'Core Concept',
-        content: 'Sankey diagrams are used to visualize the flow of data or resources between different nodes. The width of the links is proportional to the flow quantity.',
-      },
-      {
-        title: 'Data Structure Tip',
-        content: 'The data for a Sankey diagram in Recharts consists of two arrays: `nodes` (an array of objects with a `name` property) and `links` (an array of objects specifying the `source` and `target` node indices and the `value` of the flow).',
-      },
-      {
-        title: 'Example Data for Recharts',
-        content: `const data = {
-  nodes: [{ name: 'Source A' }, { name: 'Destination X' }],
-  links: [{ source: 0, target: 1, value: 100 }]
-};`,
-        isCode: true,
-      },
-    ],
-  },
-  'dumbbell-plot': {
-    heading: 'Implementing Dumbbell Plots with Recharts',
-    sections: [
-      {
-        title: 'Core Concept',
-        content: 'Dumbbell plots (or lollipop charts) are used to compare two values for each category. They are effective at showing change or a gap between two points in time or groups.',
-      },
-      {
-        title: 'Implementation with Recharts',
-        content: 'You can create a dumbbell plot using a `ComposedChart` with a vertical layout. Use two `Scatter` components for the points and a `Line` component (with a transparent stroke) to connect them and provide the invisible line for the bar effect.',
-      },
-    ],
-  },
-  'box-plot': {
-    heading: 'Creating Box Plots with Recharts',
-    sections: [
-      {
-        title: 'Core Concept',
-        content: 'Box plots (or box-and-whisker plots) are a standardized way of displaying the distribution of data based on a five-number summary: minimum, first quartile, median, third quartile, and maximum.',
-      },
-      {
-        title: 'Implementation Note',
-        content: 'Recharts does not have a native Box Plot component. However, it can be simulated by overlaying `Bar` components in a `BarChart` or by creating a custom shape component. The provided example uses a simplified approach with two bars.',
-      },
-    ],
-  },
-  'word-cloud': {
-    heading: 'Building Word Clouds in React',
-    sections: [
-      {
-        title: 'Core Concept',
-        content: 'Word clouds are a visual representation of text data, where the size of each word indicates its frequency or importance. They are great for quickly identifying prominent terms.',
-      },
-      {
-        title: 'Recommended Library',
-        content: 'While you can build a word cloud from scratch using D3.js, a library like `react-wordcloud` simplifies the process significantly. It handles the layout algorithm for you.',
-      },
-      {
-        title: 'Example Data Structure',
-        content: `const words = [
-  { text: 'React', value: 64 },
-  { text: 'JavaScript', value: 80 },
-  { text: 'DataViz', value: 40 },
-];`,
-        isCode: true,
-      },
     ],
   },
 };

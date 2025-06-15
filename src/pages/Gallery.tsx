@@ -97,57 +97,55 @@ const Gallery = () => {
         }}
       >
         <DialogContent className="max-w-6xl w-[95vw] h-[90vh] flex flex-col p-0">
-          <ScrollArea className="h-full w-full">
-            {selectedChart && (
-              <div className="md:grid md:grid-cols-5 h-full">
-                <div className="md:col-span-3 flex flex-col p-8">
-                  <DialogHeader className="pb-4">
-                    <DialogTitle className="text-3xl font-bold">{selectedChart.name}</DialogTitle>
-                    <DialogDescription className="text-lg text-muted-foreground pt-2">
-                      {selectedChart.description}
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="flex-grow min-h-[300px] md:min-h-0">
-                    <selectedChart.component />
-                  </div>
-                </div>
-                <div className="md:col-span-2 bg-secondary/30 border-t md:border-t-0 md:border-l p-6 flex flex-col md:h-full min-h-0">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center">
-                    <Sparkles className="h-5 w-5 mr-2 text-primary" />
-                    Implementation Assistant
-                  </h3>
-                  <Button onClick={handleGetAiHelp} disabled={isAiLoading}>
-                    {isAiLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Thinking...
-                      </>
-                    ) : "Ask AI for implementation help"}
-                  </Button>
-                  
-                  <ScrollArea className="flex-grow mt-4 -mr-6 pr-6">
-                    {aiHelp && (
-                      <div className="space-y-6 animate-fade-in-up">
-                        <h4 className="text-2xl font-bold text-primary">{aiHelp.heading}</h4>
-                        {aiHelp.sections.map((section, index) => (
-                          <div key={index}>
-                            <h5 className="font-semibold text-lg mb-2">{section.title}</h5>
-                            {section.isCode ? (
-                              <pre className="bg-background rounded-md p-4 text-sm overflow-x-auto">
-                                <code>{section.content}</code>
-                              </pre>
-                            ) : (
-                              <p className="text-muted-foreground">{section.content}</p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </ScrollArea>
+          {selectedChart && (
+            <div className="grid md:grid-cols-5 h-full">
+              <div className="md:col-span-3 flex flex-col p-8 h-full">
+                <DialogHeader className="pb-4">
+                  <DialogTitle className="text-3xl font-bold">{selectedChart.name}</DialogTitle>
+                  <DialogDescription className="text-lg text-muted-foreground pt-2">
+                    {selectedChart.description}
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="flex-grow min-h-0">
+                  <selectedChart.component />
                 </div>
               </div>
-            )}
-          </ScrollArea>
+              <div className="md:col-span-2 bg-secondary/30 border-l p-6 flex flex-col h-full min-h-0">
+                <h3 className="text-xl font-semibold mb-4 flex items-center">
+                  <Sparkles className="h-5 w-5 mr-2 text-primary" />
+                  Implementation Assistant
+                </h3>
+                <Button onClick={handleGetAiHelp} disabled={isAiLoading}>
+                  {isAiLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Thinking...
+                    </>
+                  ) : "Ask AI for implementation help"}
+                </Button>
+                
+                <ScrollArea className="flex-grow mt-4 -mr-6 pr-6">
+                  {aiHelp && (
+                    <div className="space-y-6 animate-fade-in-up">
+                      <h4 className="text-2xl font-bold text-primary">{aiHelp.heading}</h4>
+                      {aiHelp.sections.map((section, index) => (
+                        <div key={index}>
+                          <h5 className="font-semibold text-lg mb-2">{section.title}</h5>
+                          {section.isCode ? (
+                            <pre className="bg-background rounded-md p-4 text-sm overflow-x-auto">
+                              <code>{section.content}</code>
+                            </pre>
+                          ) : (
+                            <p className="text-muted-foreground">{section.content}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </ScrollArea>
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </>
